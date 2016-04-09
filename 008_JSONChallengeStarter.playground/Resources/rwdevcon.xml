@@ -1,0 +1,22 @@
+<rwdevcon>
+	<sessions>
+		<session>
+			<sessionId>104</sessionId>
+			<name>Adaptive Layout</name>
+			<instructor>Sam Davies</instructor>
+			<track>Beginner</track>
+		</session>
+		<session>
+			<sessionId>207</sessionId>
+      <name>Sprite Kit</name>
+			<instructor>Ray Wenderlich</instructor>
+			<track>Intermediate</track>
+		</session>
+		<session>
+			<sessionId>307</sessionId>
+      <name>Collection View Custom Layouts</name>
+			<instructor>Mic Pringle</instructor>
+			<track>Advanced</track>
+		</session>		
+	</sessions>
+</rwdevcon>
