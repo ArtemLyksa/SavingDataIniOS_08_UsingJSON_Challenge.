@@ -86,28 +86,42 @@ if let xmlUrl = NSBundle.mainBundle().URLForResource("rwdevcon", withExtension: 
     if let xmlData = xmlText.dataUsingEncoding(NSUTF8StringEncoding) {
       let parser = SessionsParser(withXML: xmlData)
       let sessions = parser.parse()
+        var topLevel : [AnyObject] = []
     
 //: First thing you need to do is create a dictionary of a String and an AnyObject.
-
-
+        for session in sessions {
+            var dictSessions:[String: AnyObject] = [:]
+            dictSessions["sessionID"] = NSNumber(integer:session.sessionId)
+        dictSessions["name"] = session.name
+        dictSessions["instructor"] = session.instructor
+        dictSessions["track"] = session.track
+        topLevel.append(dictSessions)
+        }
 //: Next, loop through all the session objects. Take each property and store it in the dictionary. For example: ["sessionId" : session.sessionId]
 
 //: Once you create your dictionary, add it to your array.
 
       
 //: Next create another dictionary. It should have a property called sessions and add your array to it.
+        var sessionsDict = ["Sessions":topLevel]
 
 
 //: At this pont you will serialize your JSON. On the NSJSONSerialization object, call the static method dataWithJSONObject(:). This will convert it to an NSData.
-
+    let sessionData = try NSJSONSerialization.dataWithJSONObject(sessionsDict, options: .PrettyPrinted)
+//        print(sessionData)
       
 //: At this point you're going to read the JSON back. Since JSON is just string, initialize a new string based off the JSON data. This is done by: String(data:, encoding:NSUTF8StringEncoding)
+        let sessionString = String(data: sessionData, encoding:NSUTF8StringEncoding)
+//        print(sessionString)
 
 
 //: Convert this string into an NSData by using the method dataUsingEncoding on the jsonString
 
-
-//: Next convert the data into JSON by calling JSONObjectWithData on the NSJSONSerialization object.
+        let jsonData = sessionString?.dataUsingEncoding(NSUTF8StringEncoding)
+//: Next convert the data into JSON by calling JSONObjectWithData on the NSJSONSerialization object
+       let newData = try NSJSONSerialization.JSONObjectWithData(jsonData!, options: .MutableContainers)
+        
+            print(newData)
 
 
 //: Finally, print out the serialized JSON object.
